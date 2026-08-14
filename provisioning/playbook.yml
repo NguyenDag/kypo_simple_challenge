@@ -61,3 +61,37 @@
         state: started
         enabled: yes
         daemon_reload: yes
+
+- hosts: student-vm
+  become: yes
+  vars_files:
+    - vars.yml
+  tasks:
+    - name: "Enable password auth in main sshd_config"
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#?\s*PasswordAuthentication'
+        line: "PasswordAuthentication yes"
+        state: present
+
+    - name: "Override password auth in drop-in dir"
+      copy:
+        dest: /etc/ssh/sshd_config.d/00-lab-passwordauth.conf
+        content: "PasswordAuthentication yes\n"
+        mode: '0644'
+
+    - name: "Restart ssh"
+      service:
+        name: ssh
+        state: restarted
+
+    - name: "Create the student login account"
+      user:
+        name: "{{ student_user }}"
+        shell: /bin/bash
+        create_home: yes
+        groups: sudo
+        append: yes
+
+    - name: "Set the student password"
+      shell: "echo '{{ student_user }}:{{ student_password }}' | chpasswd"

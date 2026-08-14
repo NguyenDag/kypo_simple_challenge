@@ -22,7 +22,7 @@
 
 | Hệ thống | User | Mật khẩu | Lấy từ đâu |
 |---|---|---|---|
-| student-vm | student | (Platform cấp) | SSH trực tiếp |
+| student-vm | student | `password123` | Nêu trong ACCESS_LEVEL |
 
 ## 3. Luồng tấn công dự kiến
 
