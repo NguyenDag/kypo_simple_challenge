@@ -1,0 +1,60 @@
+{
+  "title": "Simple Challenge",
+  "description": "A very basic CTF challenge to learn the platform. Find the hidden flag on the internal web server.",
+  "prerequisites": ["Basic Linux command line", "curl or wget"],
+  "outcomes": ["Basic web enumeration"],
+  "state": "UNRELEASED",
+  "estimated_duration": 15,
+  "variant_sandboxes": false,
+  "levels": [
+    {
+      "level_type": "INFO_LEVEL",
+      "title": "Scenario Briefing",
+      "order": 0,
+      "estimated_duration": 2,
+      "content": "<h2>Welcome, analyst</h2><p>Your task is to access the internal web server at <code>10.10.20.10</code> and find the hidden flag.</p>"
+    },
+    {
+      "level_type": "ACCESS_LEVEL",
+      "title": "Connect to Your Workstation",
+      "order": 1,
+      "estimated_duration": 3,
+      "passkey": "start",
+      "cloud_content": "<p>SSH into the student VM <code>student-vm</code> using the credentials provided by the platform. Submit the passkey to continue.</p>",
+      "local_content": "<p>SSH into the student VM <code>student-vm</code>. Submit the passkey to continue.</p>"
+    },
+    {
+      "level_type": "TRAINING_LEVEL",
+      "title": "Mission 1 — Find the flag",
+      "order": 2,
+      "estimated_duration": 10,
+      "content": "<p>There is an internal web server running on <code>10.10.20.10</code>. Connect to it and find the hidden flag.</p>",
+      "answer": "FLAG{basic_web_discovery}",
+      "solution": "1. Connect to the student VM.\n2. Fetch the web page: curl http://10.10.20.10\n3. Look at the HTML source to find the flag in an HTML comment.",
+      "solution_penalized": true,
+      "incorrect_answer_limit": 10,
+      "max_score": 100,
+      "variant_answers": false,
+      "commands_required": false,
+      "hints": [
+        {
+          "title": "How to connect",
+          "content": "Use curl to fetch the webpage: curl http://10.10.20.10",
+          "hint_penalty": 10,
+          "order": 0
+        },
+        {
+          "title": "Where is the flag",
+          "content": "The flag is hidden as an HTML comment in the source code.",
+          "hint_penalty": 20,
+          "order": 1
+        }
+      ],
+      "mitre_techniques": [],
+      "expected_commands": [
+        "curl http://10.10.20.10",
+        "curl 10.10.20.10"
+      ]
+    }
+  ]
+}

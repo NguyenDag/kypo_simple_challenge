@@ -1,0 +1,63 @@
+- hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Wait for SSH to become reachable"
+      wait_for_connection:
+        delay: 5
+        sleep: 5
+        timeout: 300
+
+- hosts: edge-router
+  become: yes
+  tasks:
+    - name: "Enable IPv4 forwarding"
+      sysctl:
+        name: net.ipv4.ip_forward
+        value: '1'
+        state: present
+        sysctl_set: yes
+        reload: yes
+
+- hosts: web-server
+  become: yes
+  vars_files:
+    - vars.yml
+  tasks:
+    - name: "Create web root directory"
+      file:
+        path: /var/www/html
+        state: directory
+        mode: '0755'
+
+    - name: "Create flag file"
+      copy:
+        dest: /var/www/html/index.html
+        content: "<html><body><h1>Welcome to Acme Corp</h1><!-- Secret: {{ flag_web }} --></body></html>\n"
+        mode: '0644'
+
+    - name: "Install python3 (if not present)"
+      apt:
+        name: python3
+        state: present
+        update_cache: yes
+
+    - name: "Web systemd unit"
+      copy:
+        dest: /etc/systemd/system/simpleweb.service
+        content: |
+          [Unit]
+          Description=Simple Web Server
+          After=network.target
+          [Service]
+          ExecStart=/usr/bin/python3 -m http.server 80 --directory /var/www/html
+          Restart=always
+          [Install]
+          WantedBy=multi-user.target
+        mode: '0644'
+
+    - name: "Enable and start web service"
+      systemd:
+        name: simpleweb.service
+        state: started
+        enabled: yes
+        daemon_reload: yes

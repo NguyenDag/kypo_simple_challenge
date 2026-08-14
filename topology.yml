@@ -1,0 +1,52 @@
+name: simple-challenge
+
+hosts:
+  - name: student-vm
+    base_box:
+      image: debian-12-x86_64
+      mgmt_user: debian
+    flavor: standard.small
+  - name: web-server
+    base_box:
+      image: debian-12-x86_64
+      mgmt_user: debian
+    flavor: standard.small
+
+routers:
+  - name: edge-router
+    base_box:
+      image: debian-12-x86_64
+      mgmt_user: debian
+    flavor: standard.small
+
+networks:
+  - name: attacker-net
+    cidr: 10.10.10.0/24
+    accessible_by_user: true
+  - name: internal-net
+    cidr: 10.10.20.0/24
+    accessible_by_user: false
+
+net_mappings:
+  - host: student-vm
+    network: attacker-net
+    ip: 10.10.10.10
+  - host: web-server
+    network: internal-net
+    ip: 10.10.20.10
+
+router_mappings:
+  - router: edge-router
+    network: attacker-net
+    ip: 10.10.10.1
+  - router: edge-router
+    network: internal-net
+    ip: 10.10.20.1
+
+groups:
+  - name: servers
+    nodes:
+      - web-server
+  - name: monitor-os
+    nodes:
+      - web-server
