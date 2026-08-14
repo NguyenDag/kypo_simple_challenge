@@ -20,8 +20,8 @@
       "order": 1,
       "estimated_duration": 3,
       "passkey": "start",
-      "cloud_content": "<p>SSH into the student VM <code>student-vm</code> using the credentials below.</p><ul><li>Username: <code>student</code></li><li>Password: <code>password123</code></li></ul><p>Submit the passkey to continue.</p>",
-      "local_content": "<p>SSH into the student VM <code>student-vm</code> using the credentials below.</p><ul><li>Username: <code>student</code></li><li>Password: <code>password123</code></li></ul><p>Submit the passkey to continue.</p>"
+      "cloud_content": "<p>SSH into the student VM <code>student-vm</code> using the credentials below.</p><ul><li>Username: <code>student</code></li><li>Password: <code>password123</code></li></ul><p>Submit the passkey <code>start</code> to continue.</p>",
+      "local_content": "<p>SSH into the student VM <code>student-vm</code> using the credentials below.</p><ul><li>Username: <code>student</code></li><li>Password: <code>password123</code></li></ul><p>Submit the passkey <code>start</code> to continue.</p>"
     },
     {
       "level_type": "TRAINING_LEVEL",
