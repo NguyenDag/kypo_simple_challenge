@@ -29,7 +29,7 @@
       "order": 2,
       "estimated_duration": 10,
       "content": "<p>There is an internal web server running on <code>10.10.20.10</code>. Connect to it and find the hidden flag.</p>",
-      "answer": "FLAG{basic_web_discovery}",
+      "answer": "FLAG{9b7d3f8a4c1e26}",
       "solution": "1. Connect to the student VM.\n2. Fetch the web page: curl http://10.10.20.10\n3. Look at the HTML source to find the flag in an HTML comment.",
       "solution_penalized": true,
       "incorrect_answer_limit": 10,

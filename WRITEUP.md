@@ -35,7 +35,7 @@ Học viên vào `student-vm` và chạy lệnh sau để lấy nội dung web:
 ```bash
 curl http://10.10.20.10
 ```
-Flag nằm trong HTML comment: `<!-- Secret: FLAG{basic_web_discovery} -->`
+Flag nằm trong HTML comment: `<!-- Secret: FLAG{9b7d3f8a4c1e26} -->`
 
 ## 5. Rà lối tắt
 
